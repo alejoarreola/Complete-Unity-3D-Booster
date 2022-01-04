@@ -26,24 +26,23 @@ public class CollisionHandler : MonoBehaviour
         }
     }
 
+    void LoadLevel()
+    {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        int nextSceneIndex = currentSceneIndex + 1;
+
+        if (nextSceneIndex == SceneManager.sceneCountInBuildSettings)
+        {
+            nextSceneIndex = 0;
+        }
+        SceneManager.LoadScene(nextSceneIndex);
+    }
+
     void ReloadLevel()
     {
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(currentSceneIndex);
     }
 
-    void LoadLevel()
-    {
-        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        
-        if (currentSceneIndex < 2)
-        {
-            SceneManager.LoadScene(currentSceneIndex + 1);
-        }
 
-        else
-        {
-            SceneManager.LoadScene(0);
-        }
-    }
 }

@@ -3,7 +3,8 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     Rigidbody rb; //breaking convention in naming it "rb" for rigidbody
-    
+    AudioSource audioSource; //cache reference to Audio Source
+
     [SerializeField] float rocketThrust = 1000f;
     [SerializeField] float rotateSpeed = 100f;
 
@@ -11,6 +12,7 @@ public class Movement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -25,6 +27,16 @@ public class Movement : MonoBehaviour
         if (Input.GetKey(KeyCode.Space))
         {
             rb.AddRelativeForce(rocketThrust * Time.deltaTime * Vector3.up);
+
+            if (!audioSource.isPlaying) //play audio if it's NOT already playing
+            {
+                audioSource.Play();
+            }
+        }
+        
+        else
+        {
+            audioSource.Stop();
         }
     }
 

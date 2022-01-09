@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class CollisionHandler : MonoBehaviour
 {
+    [SerializeField] float delayAmount = 2f;
     private void OnCollisionEnter(Collision other)
     {
         switch (other.gameObject.tag)
@@ -13,19 +14,29 @@ public class CollisionHandler : MonoBehaviour
 ;               break;
 
             case "Finish":
-                LoadLevel();
-                break;
-
-            case "Fuel":
-                Debug.Log("Got some fuel!");
+                StartFinishSequence();
                 break;
 
             default:
-                ReloadLevel();
+                StartCrashSequence(); 
                 break;
         }
     }
 
+    void StartCrashSequence()
+    {
+        //invoke is not the best solution. Research "Coroutine" for better alternative
+        GetComponent<Movement>().enabled = false;
+        GetComponent<AudioSource>().enabled = false; //todo: change to play a "fail" sfx
+        Invoke("ReloadLevel", delayAmount); 
+    }
+
+    void StartFinishSequence()
+    {
+        GetComponent<Movement>().enabled = false;
+        GetComponent<AudioSource>().enabled = false; //todo: change to play a "Victory" sfx
+        Invoke("LoadLevel", delayAmount);
+    }
     void LoadLevel()
     {
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;

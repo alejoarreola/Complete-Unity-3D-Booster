@@ -672,14 +672,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -1270694845302374463, guid: 210b9579ba6bb164b8a84cbcbe351011, type: 3}
-      propertyPath: m_Constraints
-      value: 56
-      objectReference: {fileID: 0}
-    - target: {fileID: -663892598922368102, guid: 210b9579ba6bb164b8a84cbcbe351011, type: 3}
-      propertyPath: m_audioClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 5d6bfa7d07b15cf4c8142b2d3bbb3eda, type: 3}
     - target: {fileID: 7704482765408779374, guid: 210b9579ba6bb164b8a84cbcbe351011, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -690,7 +682,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7704482765408779374, guid: 210b9579ba6bb164b8a84cbcbe351011, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.5
+      value: 2.52
       objectReference: {fileID: 0}
     - target: {fileID: 7704482765408779374, guid: 210b9579ba6bb164b8a84cbcbe351011, type: 3}
       propertyPath: m_LocalPosition.z

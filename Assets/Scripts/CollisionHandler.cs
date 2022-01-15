@@ -5,12 +5,23 @@ using UnityEngine.SceneManagement;
 public class CollisionHandler : MonoBehaviour
 {
     [SerializeField] float delayAmount = 2f;
+    [SerializeField] AudioClip success;
+    [SerializeField] AudioClip crash;
+
+    AudioSource audioSource;
+
+    bool isTransitioning = false;
+
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
+
     private void OnCollisionEnter(Collision other)
     {
         switch (other.gameObject.tag)
         {
             case "Friendly":
-                Debug.Log("It's a friendly!");
 ;               break;
 
             case "Finish":
@@ -27,14 +38,14 @@ public class CollisionHandler : MonoBehaviour
     {
         //invoke is not the best solution. Research "Coroutine" for better alternative
         GetComponent<Movement>().enabled = false;
-        GetComponent<AudioSource>().enabled = false; //todo: change to play a "fail" sfx
+        audioSource.PlayOneShot(crash); //plays crash sound on crash
         Invoke("ReloadLevel", delayAmount); 
     }
 
     void StartFinishSequence()
     {
         GetComponent<Movement>().enabled = false;
-        GetComponent<AudioSource>().enabled = false; //todo: change to play a "Victory" sfx
+        audioSource.PlayOneShot(success); //plays success sound on finish
         Invoke("LoadLevel", delayAmount);
     }
     void LoadLevel()

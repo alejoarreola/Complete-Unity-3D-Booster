@@ -2,13 +2,20 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    Rigidbody rb; //breaking convention in naming it "rb" for rigidbody
-    AudioSource audioSource; //cache reference to Audio Source
+    // general structure guidelines
+    // PARAMETERS - for tuning, typically set in the editor
+
+    // CACHE - e.g. references for readability or speed
+
+    // STATE - private instance (member) variables
 
     [SerializeField] float rocketThrust = 1000f;
     [SerializeField] float rotateSpeed = 100f;
+    [SerializeField] AudioClip engineThrust;
 
-    // Start is called before the first frame update
+    Rigidbody rb; //breaking convention in naming it "rb" for rigidbody
+    AudioSource audioSource; //cache reference to Audio Source
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -30,7 +37,7 @@ public class Movement : MonoBehaviour
 
             if (!audioSource.isPlaying) //play audio if it's NOT already playing
             {
-                audioSource.Play();
+                audioSource.PlayOneShot(engineThrust);
             }
         }
         

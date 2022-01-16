@@ -1,23 +1,25 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-
 public class CollisionHandler : MonoBehaviour
 {
     [SerializeField] float delayAmount = 2f;
     [SerializeField] AudioClip success;
     [SerializeField] AudioClip crash;
 
+    [SerializeField] ParticleSystem successParticles;
+    [SerializeField] ParticleSystem crashParticles;
+
     AudioSource audioSource;
 
     bool isTransitioning = false;
 
-    private void Start()
+    void Start()
     {
         audioSource = GetComponent<AudioSource>();
     }
 
-    private void OnCollisionEnter(Collision other)
+    void OnCollisionEnter(Collision other)
     {
         if (isTransitioning) {return;}
 
@@ -27,7 +29,7 @@ public class CollisionHandler : MonoBehaviour
 ;               break;
 
             case "Finish":
-                StartFinishSequence();
+                StartSuccessSequence();
                 break;
 
             default:
@@ -36,23 +38,25 @@ public class CollisionHandler : MonoBehaviour
         }
     }
 
+    void StartSuccessSequence()
+    {
+        isTransitioning = true;
+        audioSource.Stop(); //stops all audio
+        audioSource.PlayOneShot(success); //plays success sound on finish
+        successParticles.Play();
+        GetComponent<Movement>().enabled = false;
+        Invoke("LoadLevel", delayAmount);
+    }
+
     void StartCrashSequence()
     {
         //invoke is not the best solution. Research "Coroutine" for better alternative
         isTransitioning = true;
-        GetComponent<Movement>().enabled = false;
         audioSource.Stop();
         audioSource.PlayOneShot(crash); //plays crash sound on crash
-        Invoke("ReloadLevel", delayAmount);
-    }
-
-    void StartFinishSequence()
-    {
-        isTransitioning = true;
+        crashParticles.Play();
         GetComponent<Movement>().enabled = false;
-        audioSource.Stop(); //stops all audio
-        audioSource.PlayOneShot(success); //plays success sound on finish
-        Invoke("LoadLevel", delayAmount);
+        Invoke("ReloadLevel", delayAmount);
     }
 
     void LoadLevel()
@@ -72,6 +76,4 @@ public class CollisionHandler : MonoBehaviour
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(currentSceneIndex);
     }
-
-
 }

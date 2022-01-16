@@ -19,6 +19,8 @@ public class CollisionHandler : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
+        if (isTransitioning) {return;}
+
         switch (other.gameObject.tag)
         {
             case "Friendly":
@@ -29,7 +31,7 @@ public class CollisionHandler : MonoBehaviour
                 break;
 
             default:
-                StartCrashSequence(); 
+                StartCrashSequence();
                 break;
         }
     }
@@ -37,17 +39,22 @@ public class CollisionHandler : MonoBehaviour
     void StartCrashSequence()
     {
         //invoke is not the best solution. Research "Coroutine" for better alternative
+        isTransitioning = true;
         GetComponent<Movement>().enabled = false;
+        audioSource.Stop();
         audioSource.PlayOneShot(crash); //plays crash sound on crash
-        Invoke("ReloadLevel", delayAmount); 
+        Invoke("ReloadLevel", delayAmount);
     }
 
     void StartFinishSequence()
     {
+        isTransitioning = true;
         GetComponent<Movement>().enabled = false;
+        audioSource.Stop(); //stops all audio
         audioSource.PlayOneShot(success); //plays success sound on finish
         Invoke("LoadLevel", delayAmount);
     }
+
     void LoadLevel()
     {
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;

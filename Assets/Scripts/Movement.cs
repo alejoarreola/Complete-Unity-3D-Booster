@@ -36,23 +36,12 @@ public class Movement : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Space))
         {
-            rb.AddRelativeForce(rocketThrust * Time.deltaTime * Vector3.up);
-            
-            if (!audioSource.isPlaying) //play audio if it's NOT already playing
-            {
-                audioSource.PlayOneShot(engineThrust);
-            }
-
-            if (!mainThrustParticles.isPlaying)
-            {
-                mainThrustParticles.Play();
-            }
+            StartThrusting();
         }
-        
+
         else
         {
-            audioSource.Stop();
-            mainThrustParticles.Stop();
+            StopThrusting();
         }
     }
 
@@ -60,29 +49,65 @@ public class Movement : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
-            ApplyRotation(rotateSpeed);
-            
-            if (!rightThrustParticles.isPlaying)
-            {
-                rightThrustParticles.Play();
-            }
+            RotateLeft();
         }
 
         else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
-            ApplyRotation(-rotateSpeed);
-            
-            if (!leftThrustParticles.isPlaying)
-            {
-                leftThrustParticles.Play();
-            }
+            RotateRight();
         }
 
         else
         {
-            rightThrustParticles.Stop();
-            leftThrustParticles.Stop();
+            StopRotating();
         }
+    }
+
+    void StartThrusting()
+    {
+        rb.AddRelativeForce(rocketThrust * Time.deltaTime * Vector3.up);
+
+        if (!audioSource.isPlaying) //play audio if it's NOT already playing
+        {
+            audioSource.PlayOneShot(engineThrust);
+        }
+
+        if (!mainThrustParticles.isPlaying)
+        {
+            mainThrustParticles.Play();
+        }
+    }
+
+    void StopThrusting()
+    {
+        audioSource.Stop();
+        mainThrustParticles.Stop();
+    }
+
+    void RotateLeft()
+    {
+        ApplyRotation(rotateSpeed);
+
+        if (!rightThrustParticles.isPlaying) //plays effect on right side since it is "pushing" a left rotation
+        {
+            rightThrustParticles.Play();
+        }
+    }
+
+    void RotateRight()
+    {
+        ApplyRotation(-rotateSpeed);
+
+        if (!leftThrustParticles.isPlaying)
+        {
+            leftThrustParticles.Play();
+        }
+    }
+
+    void StopRotating()
+    {
+        rightThrustParticles.Stop();
+        leftThrustParticles.Stop();
     }
 
     //having "private" or nothing is the same. Thus, this is a private method

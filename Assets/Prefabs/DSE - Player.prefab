@@ -876,6 +876,7 @@ GameObject:
   - component: {fileID: -663892598922368102}
   - component: {fileID: 533172898}
   - component: {fileID: -2541475089136902043}
+  - component: {fileID: 5496502217706228974}
   m_Layer: 0
   m_Name: DSE - Player
   m_TagString: Player
@@ -1067,6 +1068,18 @@ MonoBehaviour:
   crash: {fileID: 8300000, guid: 2aedcb1900fb45a4688efb2a9b48fbe5, type: 3}
   successParticles: {fileID: 4145146383042631593}
   crashParticles: {fileID: 6856992771212366648}
+--- !u!114 &5496502217706228974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8602130470511905795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bea8aac1ec6cf140a5c9c24662c8d30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &338844903400096263
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1278,14 +1291,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17b69e22fbdf0bc4a9bb142b4411fc7d, type: 3}
---- !u!4 &6856992771197163128 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400004, guid: 17b69e22fbdf0bc4a9bb142b4411fc7d, type: 3}
-  m_PrefabInstance: {fileID: 6856992771197553916}
-  m_PrefabAsset: {fileID: 0}
 --- !u!198 &6856992771212366648 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 19800004, guid: 17b69e22fbdf0bc4a9bb142b4411fc7d, type: 3}
+  m_PrefabInstance: {fileID: 6856992771197553916}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6856992771197163128 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400004, guid: 17b69e22fbdf0bc4a9bb142b4411fc7d, type: 3}
   m_PrefabInstance: {fileID: 6856992771197553916}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7727879347922691090
